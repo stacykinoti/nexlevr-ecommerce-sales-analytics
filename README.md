@@ -42,3 +42,22 @@ DIVIDE(
     DISTINCTCOUNT(Cleaned_Superstore[Order_ID]), 
     0
 )
+
+---
+
+## 🛠️ DAX Measures Reference
+
+### Repeat Revenue Share
+```dax
+Repeat Revenue Share = 
+DIVIDE(
+    CALCULATE(
+        SUM(Cleaned_Superstore[Sales_Amount]), 
+        FILTER(
+            VALUES(Cleaned_Superstore[Customer_ID]), 
+            CALCULATE(DISTINCTCOUNT(Cleaned_Superstore[Order_ID])) > 1
+        )
+    ),
+    SUM(Cleaned_Superstore[Sales_Amount]),
+    0
+)
